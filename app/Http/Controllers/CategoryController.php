@@ -3,33 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
 use App\Models\Category;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
-    public function index()
-    {
-        $products = Product::get();
-        $categories = Category::get();
-        return view('dashboard', compact('products', 'categories'));
-    }
-
     public function create()
     {
-        $categories = Category::get();
-        return view('products.add-new-product', compact('categories'));
+        return view('categories.add-new-category');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:225',
-            'description' => 'required|string|max:225',
-            'category_id' => 'required',
-            'price' => 'required',
-            'amount'=>'required',
-            'image' => 'required|mimes:png,gif,jpg,jpeg,bmp,svg|max:2048',
+            'image' => 'mimes:png,gif,jpg,jpeg,bmp,svg|max:2048'
         ]);
       
         $input = $request->all();
@@ -42,7 +29,7 @@ class ProductController extends Controller
             $input['image'] = "$profileImage";
         }
     
-        Product::create($input);
+        Category::create($input);
 
         return back()
             ->with('status','Done!');
@@ -61,20 +48,16 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $categories = Category::all();
-        $product = Product::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        return view('products.edit-product', compact('categories', 'product'));
+        return view('categories.edit-category', compact('category'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:225',
-            'description' => 'required|string|max:225',
-            'category_id' => 'required',
-            'price' => 'required',
-            'amount'=>'required',
+            'image' => 'mimes:png,gif,jpg,jpeg,bmp,svg|max:2048'
         ]);
       
         $input = $request->all();
@@ -89,21 +72,24 @@ class ProductController extends Controller
             unset($input['image']);
         }
         
-        $product = Product::findOrFail($id);
-        $product->update($input);
+        $category = Category::findOrFail($id);
+        $category->update($input);
 
         return back()
-            ->with('status','Product updated!');
+            ->with('status','Category updated!');
     }
 
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $imagePath = public_path().'/images/'.$product->image;
-        unlink($imagePath);
+        $category = Category::findOrFail($id);
+        if($category->image !== null){
+            $imagePath = public_path().'/images/'.$category->image;
+            unlink($imagePath);
+            // dd('hello yes');
+        }
 
-        $product->delete();
+        $category->delete();
 
-        return back()->with('status', 'Product delete!');
+        return back()->with('status', 'Category delete!');
     }
 }

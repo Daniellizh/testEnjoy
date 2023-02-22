@@ -29,6 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::get('edit-product/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('edit-product');
     Route::post('edit-product/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('update-product');
     Route::delete('delete-produtc/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('delete-product');
+
+    Route::get('add-new-category', [App\Http\Controllers\CategoryController::class, 'create'])->name('add-new-category');
+    Route::post('store-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('store-category');
+    Route::get('edit-category/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('edit-category');
+    Route::post('edit-category/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('update-category');
+    Route::delete('delete-category/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('delete-category');
 });
 
 require __DIR__.'/auth.php';
