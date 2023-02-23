@@ -30,6 +30,12 @@ class CreateSuperUserSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
 
+        Role::create([
+            'name'=>'user',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
         $superUser->assignRole('super-user');
     }
 }
