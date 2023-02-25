@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('roles', RoleController::class)->middleware('role:super-user');
     Route::resource('users', UserController::class)->middleware('role:super-user');
+
+    Route::get('/cart/index', [CartController::class, 'show'])->name('cart.index');
+    Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add-to-cart');
+    Route::post('/cart/order', [CartController::class, 'placeOrder'])->name('cart.place-order');
 });
 
 require __DIR__.'/auth.php';
