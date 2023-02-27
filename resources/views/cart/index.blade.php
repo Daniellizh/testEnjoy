@@ -10,12 +10,41 @@
                 <h2>{{ $item->product->name }}</h2>
                 <p>{{ $item->product->description }}</p>
                 <p>Quantity: {{ $item->quantity }}</p>
+                <form action="{{ route('cart.cart-delete', $item->id)}}" method="POST" style="display:inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
             </div>
         @endforeach
 
-        <form action="{{ route('cart.place-order') }}" method="POST">
-            @csrf
-            <button type="submit">Place Order</button>
-        </form>
-
+        <form method="POST" action="{{ route('cart.place-order') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-6 ">
+                        <label class="block">
+                            <span class="text-gray-700">Select Category</span>
+                            <select name="postName" class="block w-full mt-1 rounded-md">
+                                <option>Nova Poshta</option>
+                                <option>Ukr Poshta</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Post office</label>
+                        <input type="text" name="postOffice" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Post city</label>
+                        <input type="text" name="postCity" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Post street</label>
+                        <input type="text" name="postStreet" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Post builder</label>
+                        <input type="texts" name="postBuilder" class="form-control">
+                    </div>
+                    <button type="submit">Place Order</button>
+                </form>
 </x-app-layout>
