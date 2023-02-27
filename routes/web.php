@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add-to-cart');
     Route::post('/cart/order', [CartController::class, 'placeOrder'])->name('cart.place-order');
     Route::delete('delete-cart/{id}', [CartController::class, 'destroyCart'])->name('cart.cart-delete');
+
+    Route::get('/orders/admin', [OrderController::class, 'index'])->name('orders.index');
 });
 
 require __DIR__.'/auth.php';
