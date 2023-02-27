@@ -20,6 +20,10 @@
 
         <form method="POST" action="{{ route('cart.place-order') }}" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control">
+                    </div>
                     <div class="mb-6 ">
                         <label class="block">
                             <span class="text-gray-700">Select Category</span>
@@ -45,6 +49,6 @@
                         <label>Post builder</label>
                         <input type="texts" name="postBuilder" class="form-control">
                     </div>
-                    <button type="submit">Place Order</button>
+                    <button class="btn btn-primary mt-2">Place Order</button>
                 </form>
 </x-app-layout>

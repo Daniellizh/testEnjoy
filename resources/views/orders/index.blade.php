@@ -4,14 +4,10 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
-        @foreach ($orders as $order)
-        @foreach ($users as $user)
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">User</th>
                     <th scope="col">Email</th>
                     <th scope="col">Product</th>
                     <th scope="col">Amount</th>
@@ -24,22 +20,22 @@
                     <th scope="col">Created_at</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">{{ $order->id }}</th>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->id }}</td>
-                </tr>
-                </tbody>
+                @foreach ($orders as $order)
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ $order->id }}</th>
+                        <td>{{ $order->email }}</td>
+                        <td>{{ $order->product->name }}</td>
+                        <td>{{ $order->amount }}</td>
+                        <td>{{ $order->price }}</td>
+                        <td>{{ $order->postName }}</td>
+                        <td>{{ $order->postOffice }}</td>
+                        <td>{{ $order->postCity }}</td>
+                        <td>{{ $order->postStreet }}</td>
+                        <td>{{ $order->postBuilder }}</td>
+                        <td>{{ $order->created_at }}</td>
+                    </tr>
+                    </tbody>
+                @endforeach
             </table>            
-        @endforeach
-        @endforeach
-
 </x-app-layout>

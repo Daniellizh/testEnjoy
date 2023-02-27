@@ -44,8 +44,17 @@ class CartController extends Controller
             }else{
                 $product->amount -= $item->quantity;
 
+                $request->validate([
+                    'email' => 'required',
+                    'postName' => 'required',
+                    'postOffice' => 'required',
+                    'postCity' => 'required',
+                    'postStreet' => 'required',
+                    'postBuilder' => 'required',
+                ]);
+                
                 Order::create([
-                    'user_id' => Auth::id(),
+                    'email' => $request->email,
                     'product_id' =>  $item->product_id = $product->id,
                     'price' => $product['price'] * $item['quantity'],
                     'amount' => $item['quantity'],
