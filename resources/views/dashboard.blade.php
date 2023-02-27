@@ -41,11 +41,15 @@
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                                 @endif
+                                @if($product->amount > 0)
                                 <form action="{{ route('cart.add-to-cart', $product->id) }}" method="POST">
                                     @csrf
                                     <input type="number" name="quantity" value="1">
                                     <button type="submit">Add to Cart</button>
                                 </form>
+                                @else
+                                    <p>This product is not!</p>
+                                @endif
                             </div>
                         </div>
                     </div>

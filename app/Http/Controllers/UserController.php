@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -35,15 +35,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-        ]);
-
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
@@ -77,13 +70,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'role_id' => 'required|integer|exists:roles,id',
-        ]);
-
         $user->update([
             'name' => $request->name
         ]);

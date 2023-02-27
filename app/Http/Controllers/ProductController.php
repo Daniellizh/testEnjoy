@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 
@@ -21,19 +21,9 @@ class ProductController extends Controller
         return view('products.add-new-product', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:225',
-            'description' => 'required|string|max:225',
-            'category_id' => 'required',
-            'price' => 'required',
-            'amount'=>'required',
-            'image' => 'required|mimes:png,gif,jpg,jpeg,bmp,svg|max:2048',
-        ]);
-      
+    public function store(ProductRequest $request)
+    { 
         $input = $request->all();
-        
         
         if ($image = $request->file('image')) {
             $destinationPath = 'images/';
@@ -67,16 +57,8 @@ class ProductController extends Controller
         return view('products.edit-product', compact('categories', 'product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:225',
-            'description' => 'required|string|max:225',
-            'category_id' => 'required',
-            'price' => 'required',
-            'amount'=>'required',
-        ]);
-      
         $input = $request->all();
         
         

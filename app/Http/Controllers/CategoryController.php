@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -12,13 +12,8 @@ class CategoryController extends Controller
         return view('categories.add-new-category');
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:225',
-            'image' => 'mimes:png,gif,jpg,jpeg,bmp,svg|max:2048'
-        ]);
-      
         $input = $request->all();
         
         
@@ -53,13 +48,8 @@ class CategoryController extends Controller
         return view('categories.edit-category', compact('category'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:225',
-            'image' => 'mimes:png,gif,jpg,jpeg,bmp,svg|max:2048'
-        ]);
-      
+    public function update(CategoryRequest $request, $id)
+    { 
         $input = $request->all();
         
         
